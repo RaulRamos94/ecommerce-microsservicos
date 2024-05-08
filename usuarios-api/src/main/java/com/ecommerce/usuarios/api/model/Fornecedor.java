@@ -33,7 +33,10 @@ public class Fornecedor {
     private String email;
 
     @Column(nullable = false)
-    private String telefone;
+    private String telefone1;
+
+    @Column(nullable = false)
+    private String telefone2;
 
     @Embedded
     private Endereco endereco;
