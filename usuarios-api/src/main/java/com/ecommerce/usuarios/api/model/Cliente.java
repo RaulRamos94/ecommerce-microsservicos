@@ -1,7 +1,9 @@
 package com.ecommerce.usuarios.api.model;
 
 import java.time.LocalDate;
+import java.time.Period;
 
+import com.ecommerce.usuarios.api.dto.ClienteDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
@@ -42,5 +44,29 @@ public class Cliente {
 
     @Embedded
     private Endereco endereco;
+
+    public ClienteDTO converterParaDTO() {
+        ClienteDTO dto = new ClienteDTO();
+
+        dto.setId(id);
+        dto.setNome(nome);
+        dto.setCpf(cpf);
+        dto.setEmail(email);
+        dto.setTelefone(telefone);
+
+        Period periodo = Period.between(dataNascimento, LocalDate.now());
+
+        dto.setIdade(periodo.getYears());
+
+        dto.setCep(endereco.getCep());
+        dto.setLogradouro(endereco.getLogradouro());
+        dto.setCidade(endereco.getCidade());
+        dto.setUf(endereco.getUf());
+        dto.setBairro(endereco.getBairro());
+        dto.setNumero(endereco.getNumero());
+        dto.setComplemento(endereco.getComplemento());
+
+        return dto;
+    }
 
 }
