@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +42,11 @@ public class ClienteController {
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(cliente);
+    }
+
+    @GetMapping(value = "/paginacao")
+    public ResponseEntity<Page<Cliente>> listarClientesPaginacao(Pageable paginacao) {
+        return ResponseEntity.status(HttpStatus.OK).body(clienteService.obterPaginaClientes(paginacao));
     }
 
     @Autowired

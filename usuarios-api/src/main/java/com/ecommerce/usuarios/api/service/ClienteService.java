@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.ecommerce.usuarios.api.dto.ClienteDTO;
@@ -23,6 +25,10 @@ public class ClienteService {
                 .stream()
                 .map(c -> c.converterParaDTO())
                 .collect(Collectors.toList());
+    }
+
+    public Page<Cliente> obterPaginaClientes(Pageable paginacao) {
+        return clienteRepository.findAll(paginacao);
     }
 
     public ClienteDTO obterCliente(Long id) {
