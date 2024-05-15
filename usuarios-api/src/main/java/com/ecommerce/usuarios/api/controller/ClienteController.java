@@ -1,6 +1,7 @@
 package com.ecommerce.usuarios.api.controller;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,13 +27,19 @@ public class ClienteController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Cliente>> listarClientes() {
-        return null;
+    public ResponseEntity<List<ClienteDTO>> listarClientes() {
+        return ResponseEntity.status(HttpStatus.OK).body(clienteService.obterListaClientes());
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Cliente> obterDadosCliente(@PathVariable("id") Long id) {
-        return null;
+    public ResponseEntity<ClienteDTO> obterDadosCliente(@PathVariable("id") Long id) {
+        ClienteDTO cliente = clienteService.obterCliente(id);
+
+        if (Objects.isNull(cliente)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(cliente);
     }
 
     @Autowired
