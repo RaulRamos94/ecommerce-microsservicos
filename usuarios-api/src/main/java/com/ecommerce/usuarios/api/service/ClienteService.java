@@ -27,8 +27,8 @@ public class ClienteService {
                 .collect(Collectors.toList());
     }
 
-    public Page<Cliente> obterPaginaClientes(Pageable paginacao) {
-        return clienteRepository.findAll(paginacao);
+    public Page<ClienteDTO> obterPaginaClientes(Pageable paginacao) {
+        return clienteRepository.findAll(paginacao).map(Cliente::converterParaDTO);
     }
 
     public ClienteDTO obterCliente(Long id) {
@@ -36,6 +36,19 @@ public class ClienteService {
 
         if (cliente.isPresent()) {
             return cliente.get().converterParaDTO();
+        }
+
+        return null;
+    }
+
+    public List<ClienteDTO> obterClientesPeloNome(String nome) {
+        Optional<List<Cliente>> clientes = clienteRepository.findByNomeLike(nome + "%");
+
+        if (clientes.isPresent()) {
+            return clientes.get()
+                    .stream()
+                    .map(c -> c.converterParaDTO())
+                    .collect(Collectors.toList());
         }
 
         return null;
