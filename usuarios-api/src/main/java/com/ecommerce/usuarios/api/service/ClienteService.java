@@ -10,13 +10,26 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.ecommerce.usuarios.api.dto.ClienteDTO;
+import com.ecommerce.usuarios.api.dto.EnderecoDTO;
 import com.ecommerce.usuarios.api.model.Cliente;
+import com.ecommerce.usuarios.api.model.Endereco;
 import com.ecommerce.usuarios.api.repository.ClienteRepository;
 
 @Service
 public class ClienteService {
 
     public ClienteDTO salvarCliente(Cliente cliente) {
+        EnderecoDTO enderecoDTO = enderecoService.buscarEnderecoPeloCEP(cliente.getEndereco().getCep());
+
+        Endereco endereco = cliente.getEndereco();
+
+        endereco.setBairro(enderecoDTO.getBairro());
+        endereco.setCidade(enderecoDTO.getLocalidade());
+        endereco.setLogradouro(enderecoDTO.getLogradouro());
+        endereco.setUf(enderecoDTO.getUf());
+
+        cliente.setEndereco(endereco);
+
         return clienteRepository.save(cliente).converterParaDTO();
     }
 
@@ -56,5 +69,8 @@ public class ClienteService {
 
     @Autowired
     private ClienteRepository clienteRepository;
+
+    @Autowired
+    private EnderecoService enderecoService;
 
 }
