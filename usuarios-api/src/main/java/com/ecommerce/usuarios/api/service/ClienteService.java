@@ -28,8 +28,6 @@ public class ClienteService {
         endereco.setLogradouro(enderecoDTO.getLogradouro());
         endereco.setUf(enderecoDTO.getUf());
 
-        cliente.setEndereco(endereco);
-
         return clienteRepository.save(cliente).converterParaDTO();
     }
 
