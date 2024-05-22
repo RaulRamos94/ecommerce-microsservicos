@@ -9,8 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.ecommerce.usuarios.api.dto.ClienteDTO;
-import com.ecommerce.usuarios.api.dto.EnderecoDTO;
+import com.ecommerce.compras.client.usuario.ClienteDTO;
+import com.ecommerce.compras.client.usuario.EnderecoDTO;
 import com.ecommerce.usuarios.api.model.Cliente;
 import com.ecommerce.usuarios.api.model.Endereco;
 import com.ecommerce.usuarios.api.repository.ClienteRepository;

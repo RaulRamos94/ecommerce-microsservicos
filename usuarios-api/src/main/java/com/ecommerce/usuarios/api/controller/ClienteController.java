@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,10 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ecommerce.usuarios.api.dto.ClienteDTO;
+import com.ecommerce.compras.client.usuario.ClienteDTO;
 import com.ecommerce.usuarios.api.model.Cliente;
 import com.ecommerce.usuarios.api.service.ClienteService;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/clientes")
 public class ClienteController {
@@ -49,14 +51,15 @@ public class ClienteController {
 
     @GetMapping(value = "/paginacao")
     public ResponseEntity<Page<ClienteDTO>> listarClientesPaginacao(
-        @PageableDefault(page = 1, size = 5, sort = "nome", direction = Direction.DESC) Pageable paginacao) {
+            @PageableDefault(page = 1, size = 5, sort = "nome", direction = Direction.DESC) Pageable paginacao) {
         return ResponseEntity.status(HttpStatus.OK).body(clienteService.obterPaginaClientes(paginacao));
     }
 
     @GetMapping(value = "/nome")
-    public ResponseEntity<List<ClienteDTO>> filtrarClientesPeloNome(@RequestParam(name = "nome", required = false) String nome) {
+    public ResponseEntity<List<ClienteDTO>> filtrarClientesPeloNome(
+            @RequestParam(name = "nome", required = false) String nome) {
         List<ClienteDTO> clientes = clienteService.obterClientesPeloNome(nome);
-        
+
         if (Objects.nonNull(clientes)) {
             return ResponseEntity.status(HttpStatus.OK).body(clientes);
         }

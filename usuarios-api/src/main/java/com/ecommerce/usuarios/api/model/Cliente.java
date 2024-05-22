@@ -3,7 +3,7 @@ package com.ecommerce.usuarios.api.model;
 import java.time.LocalDate;
 import java.time.Period;
 
-import com.ecommerce.usuarios.api.dto.ClienteDTO;
+import com.ecommerce.compras.client.usuario.ClienteDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
