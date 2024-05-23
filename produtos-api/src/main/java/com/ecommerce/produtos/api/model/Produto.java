@@ -36,7 +36,7 @@ public class Produto {
     private Double preco;
 
     @ManyToOne
-    @JoinColumn(name = "idCategoria", nullable = false)
+    @JoinColumn(name = "id_categoria", nullable = false)
     private Categoria categoria;
 
     public ProdutoDTO converterParaDTO() {

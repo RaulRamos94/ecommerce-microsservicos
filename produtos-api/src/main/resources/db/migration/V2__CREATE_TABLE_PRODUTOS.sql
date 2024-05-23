@@ -4,6 +4,6 @@ CREATE TABLE IF NOT EXISTS `tb_produtos` (
     `nome` VARCHAR(255) NOT NULL,
     `descricao` TEXT NOT NULL,
     `preco` DECIMAL(10, 2) NOT NULL,
-    `idCategoria` BIGINT NOT NULL,
-    FOREIGN KEY (`idCategoria`) REFERENCES `tb_categorias` (`id`)
+    `id_categoria` BIGINT NOT NULL,
+    FOREIGN KEY (`id_categoria`) REFERENCES `tb_categorias` (`id`)
 );
