@@ -1,5 +1,7 @@
 package com.ecommerce.produtos.api.model;
 
+import com.ecommerce.compras.client.produto.ProdutoDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,5 +38,18 @@ public class Produto {
     @ManyToOne
     @JoinColumn(name = "idCategoria", nullable = false)
     private Categoria categoria;
+
+    public ProdutoDTO converterParaDTO() {
+        ProdutoDTO dto = new ProdutoDTO();
+
+        dto.setId(id);
+        dto.setNome(nome);
+        dto.setCodigo(codigo);
+        dto.setDescricao(descricao);
+        dto.setPreco(preco);
+        dto.setCategoria(categoria.getNome());
+
+        return dto;
+    }
 
 }
