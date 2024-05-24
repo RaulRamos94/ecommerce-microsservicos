@@ -2,9 +2,10 @@ package com.ecommerce.compras.api.model;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.ecommerce.compras.client.compra.CompraDTO;
+import com.ecommerce.compras.client.compra.ItemDTO;
+import com.ecommerce.compras.client.usuario.ClienteDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
@@ -40,14 +41,14 @@ public class Compra {
     @OneToMany
     private List<Item> itens;
 
-    public CompraDTO converterParaDTO() {
+    public CompraDTO converterParaDTO(ClienteDTO cliente, List<ItemDTO> itens) {
         CompraDTO dto = new CompraDTO();
 
         dto.setId(id);
-        dto.setCliente(null);
+        dto.setCliente(cliente);
         dto.setData(data);
         dto.setTotal(total);
-        dto.setItens(itens.stream().map(Item::converterParaDTO).collect(Collectors.toList()));
+        dto.setItens(itens);
 
         return dto;
     }
