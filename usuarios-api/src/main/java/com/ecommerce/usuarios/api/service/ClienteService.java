@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ecommerce.compras.client.usuario.ClienteDTO;
@@ -19,6 +20,14 @@ import com.ecommerce.usuarios.api.repository.ClienteRepository;
 public class ClienteService {
 
     public ClienteDTO salvarCliente(Cliente cliente) {
+        String senha = cliente.getSenha();
+
+        BCryptPasswordEncoder encoder = authorizationService.getPasswordEncoder();
+
+        String senhaCriptografada = encoder.encode(senha);
+
+        cliente.setSenha(senhaCriptografada);
+
         EnderecoDTO enderecoDTO = enderecoService.buscarEnderecoPeloCEP(cliente.getEndereco().getCep());
 
         Endereco endereco = cliente.getEndereco();
@@ -75,10 +84,23 @@ public class ClienteService {
         return null;
     }
 
+    public Cliente obterClientePeloCpf(String cpf) {
+        Optional<Cliente> cliente = clienteRepository.findByCpf(cpf);
+
+        if (cliente.isPresent()) {
+            return cliente.get();
+        }
+
+        return null;
+    }
+
     @Autowired
     private ClienteRepository clienteRepository;
 
     @Autowired
     private EnderecoService enderecoService;
+
+    @Autowired
+    private AuthorizationService authorizationService;
 
 }
