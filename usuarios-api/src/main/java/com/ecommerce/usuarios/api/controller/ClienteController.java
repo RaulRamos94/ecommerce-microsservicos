@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,13 +26,15 @@ import com.ecommerce.usuarios.api.service.ClienteService;
 @RestController
 @RequestMapping(value = "/clientes")
 public class ClienteController {
-
+    
     @PostMapping
+    @Secured({"ROLE_ADMIN"})
     public ResponseEntity<ClienteDTO> cadastrarCliente(@RequestBody Cliente cliente) {
         return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.salvarCliente(cliente));
     }
 
     @GetMapping
+    @Secured({"ROLE_USER"})
     public ResponseEntity<List<ClienteDTO>> listarClientes() {
         return ResponseEntity.status(HttpStatus.OK).body(clienteService.obterListaClientes());
     }
