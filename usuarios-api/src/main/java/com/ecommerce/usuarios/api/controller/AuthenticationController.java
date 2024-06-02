@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ecommerce.usuarios.api.dto.AuthenticationDTO;
-import com.ecommerce.usuarios.api.dto.UsuarioDTO;
+import com.ecommerce.compras.client.usuario.AuthenticationDTO;
+import com.ecommerce.compras.client.usuario.UsuarioDTO;
 import com.ecommerce.usuarios.api.model.Cliente;
 import com.ecommerce.usuarios.api.service.TokenService;
 
