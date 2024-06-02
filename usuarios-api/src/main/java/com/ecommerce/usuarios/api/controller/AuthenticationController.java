@@ -25,7 +25,7 @@ public class AuthenticationController {
     public ResponseEntity<UsuarioDTO> login(@RequestBody AuthenticationDTO dto) {
         try {
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(dto.getLogin(), dto.getSenha()));
+                    new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword()));
 
             Cliente cliente = (Cliente) authentication.getPrincipal();
 
