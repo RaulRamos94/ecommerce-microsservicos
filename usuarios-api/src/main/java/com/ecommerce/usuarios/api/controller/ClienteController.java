@@ -34,12 +34,13 @@ public class ClienteController {
     }
 
     @GetMapping
-    @Secured({"ROLE_USER"})
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public ResponseEntity<List<ClienteDTO>> listarClientes() {
         return ResponseEntity.status(HttpStatus.OK).body(clienteService.obterListaClientes());
     }
 
     @GetMapping(value = "/{id}")
+    @Secured({"ROLE_ADMIN"})
     public ResponseEntity<ClienteDTO> obterDadosCliente(@PathVariable("id") Long id) {
         ClienteDTO cliente = clienteService.obterCliente(id);
 
