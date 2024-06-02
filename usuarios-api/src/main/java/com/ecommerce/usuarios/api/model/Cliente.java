@@ -57,7 +57,7 @@ public class Cliente implements UserDetails {
     @Column(nullable = false)
     private boolean administrador;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "usuario_externo")
     private boolean usuarioExterno;
 
     public ClienteDTO converterParaDTO() {
