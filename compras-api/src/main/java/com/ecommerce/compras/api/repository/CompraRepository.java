@@ -13,8 +13,10 @@ import com.ecommerce.compras.api.model.Compra;
 @Repository
 public interface CompraRepository extends JpaRepository<Compra, Long> {
 
-    @Query("SELECT c FROM tb_compras c JOIN tb_compra_item ci ON c.id = ci.idCompra " +
-            "JOIN tb_itens i ON ci.idItem = i.id WHERE i.id = :idItem")
+    @Query(value = "SELECT c.* FROM tb_compras c " +
+            "JOIN tb_compras_itens ci ON c.id = ci.id_compra " +
+            "JOIN tb_itens i ON ci.id_item = i.id " +
+            "WHERE i.id = :idItem", nativeQuery = true)
     Optional<List<Compra>> findByItem(@Param("idItem") long idItem);
 
 }
